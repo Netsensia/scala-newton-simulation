@@ -1,4 +1,5 @@
 import scalafx.scene.paint.Color
+import scalafx.scene.shape.{Sphere}
 
 class Body(
     _name: String, 

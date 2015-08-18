@@ -4,6 +4,9 @@ import scalafx.animation._
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene._
+import scalafx.stage._
+import scalafx.scene.control.{Button}
+import scalafx.scene.layout.StackPane
 import scalafx.scene.paint.{Color, PhongMaterial}
 import scalafx.scene.shape.{Sphere, Box}
 import scalafx.scene.transform.Rotate
@@ -17,6 +20,17 @@ object Newton extends JFXApp {
   
   stage = new JFXApp.PrimaryStage {
     title = "The Solar System"
+    
+    val stage = new Stage
+    val button = new Button
+    val pane = new StackPane
+    pane.getChildren add button
+    
+    val s = new Scene(pane)
+    stage setScene s
+    stage setWidth 800
+    stage setHeight 600
+    stage show
     
     scene = new Scene(1900, 1000, true, SceneAntialiasing.Balanced) {
       
@@ -68,15 +82,16 @@ object Newton extends JFXApp {
       
       addMouseInteraction(this, planets)
       
-      new Timeline {
+      val timeline = new Timeline {
         cycleCount = INDEFINITE
         autoReverse = true
         keyFrames = (for (planet <- planets.getChildren) yield Seq(
             at(0 s) {Set(planet.translateZ -> random * 5000)},
             at(5 s) {Set(planet.translateZ -> random * 5000)}
         )).flatten
-      }.play
-      
+      }
+
+        
     }
   }
   
